@@ -1,0 +1,68 @@
+---
+---
+
+@import 'main';
+
+/* append your custom style below */
+pre {
+  tab-size: 2;
+}
+
+#sidebar {
+  // background: url('/assets/img/misc/sidebar2.jpg');
+  // background-size: cover;
+  .site-title {
+    a {
+      @extend %clickable-transition;
+      @extend %sidebar-link-hover;
+      color: #bbbbbb;
+      text-decoration: none;
+    }
+  }
+  ul {
+    a {
+      color: #ddd;
+      // background-color: #4a4a4a30;
+      background-color: #a4a4a430;
+    }
+  }
+}
+#sidebar:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url('/assets/img/misc/sidebar2.jpg');
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  opacity: 0.4;
+  z-index: -1;
+}
+
+#main-wrapper:after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: url('/assets/img/misc/plana.png');
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.08;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+#topbar-wrapper {
+  border-radius: 0 0 .625rem .625rem;
+}
+
+#tail-wrapper>footer {
+  padding: 0 1.75rem;
+  border-radius: .625rem .625rem 0 0;
+}
