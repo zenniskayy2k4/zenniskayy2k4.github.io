@@ -43,11 +43,6 @@ pre {
   transition: background-position 0.5s ease, opacity 0.5s ease;
 }
 
-#sidebar:hover:after {
-  background-position: 0 0;
-  opacity: 0.6;
-}
-
 #main-wrapper:after {
   content: '';
   display: block;
