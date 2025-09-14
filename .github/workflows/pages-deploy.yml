@@ -48,7 +48,7 @@ jobs:
       - name: Build site
         run: JEKYLL_ENV=production bundle exec jekyll build -d "_site${{ steps.pages.outputs.base_path }}"
         env:
-          JEKYLL_ENV: "production"
+          JEKYLL_ENV: production
 
       - name: Test site
         run: |
