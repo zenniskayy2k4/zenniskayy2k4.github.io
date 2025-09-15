@@ -1,9 +1,19 @@
 ---
 ---
 
-@import 'main';
+/* prettier-ignore */
+@use 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
 
 /* append your custom style below */
+
+pre {
+  tab-size: 2;
+}
+
 #sidebar:after {
   content: '';
   display: block;
@@ -12,9 +22,12 @@
   left: 0;
   background-image: url('{{ "/assets/img/misc/sidebar.jpg" | relative_url }}');
   background-size: cover;
-  background-position: center;
+  background-position: -130px 0;
+  width: 100%;
+  height: 100%;
   opacity: 0.4;
   z-index: -1;
+  transition: background-position 0.5s ease, opacity 0.5s ease;
 }
 
 #main-wrapper:after {
@@ -32,4 +45,13 @@
   width: 100%;
   height: 100%;
   z-index: -1;
+}
+
+#topbar-wrapper {
+  border-radius: 0 0 0.625rem 0.625rem;
+}
+
+#tail-wrapper > footer {
+  padding: 0 1.75rem;
+  border-radius: 0.625rem 0.625rem 0 0;
 }
