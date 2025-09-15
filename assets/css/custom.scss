@@ -1,32 +1,23 @@
 ---
 ---
 
-@import 'main';
-
 /* append your custom style below */
+
 pre {
   tab-size: 2;
 }
 
 #sidebar {
-  // background: url('/assets/img/misc/sidebar2.jpg');
-  // background-size: cover;
-  .site-title {
-    a {
-      @extend %clickable-transition;
-      @extend %sidebar-link-hover;
-      color: #bbbbbb;
-      text-decoration: none;
-    }
+  .site-title a {
+    color: #bbbbbb;
+    text-decoration: none;
   }
-  ul {
-    a {
-      color: #ddd;
-      // background-color: #4a4a4a30;
-      background-color: #a4a4a430;
-    }
+  ul a {
+    color: #ddd;
+    background-color: #a4a4a430;
   }
 }
+
 #sidebar:after {
   content: '';
   display: block;
