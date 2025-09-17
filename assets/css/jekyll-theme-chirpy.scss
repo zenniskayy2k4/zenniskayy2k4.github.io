@@ -20,7 +20,7 @@ pre {
   position: absolute;
   top: 0;
   left: 0;
-  background-image: url('{{ "/assets/img/misc/sidebar.jpg" | relative_url }}');
+  background-image: url('/assets/img/misc/sidebar.jpg');
   background-size: cover;
   background-position: -130px 0;
   width: 100%;
@@ -36,7 +36,7 @@ pre {
   position: absolute;
   top: 0;
   left: 0;
-  background: url('{{ "/assets/img/misc/chill.jpeg" | relative_url }}');
+  background: url('/assets/img/misc/chill.jpeg');
   background-attachment: fixed;
   background-size: cover;
   background-repeat: no-repeat;
@@ -54,4 +54,34 @@ pre {
 #tail-wrapper > footer {
   padding: 0 1.75rem;
   border-radius: 0.625rem 0.625rem 0 0;
+}
+
+/* Prompt for flag */
+/* Dark mode prompt-flag */
+.prompt-flag {
+  border-left: 0.25rem solid #e63946;
+  background-color: #2b2d42;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  font-family: monospace;
+  color: #f1faee;
+  font-weight: bold;
+  position: relative;
+}
+
+.prompt-flag::before {
+  content: '🏁';
+  top: 45%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+}
+
+/* Light mode override */
+@media (prefers-color-scheme: light) {
+  .prompt-flag {
+    background-color: #f8f9fa;
+    color: #2d2d2d;
+    border-left-color: #c92a2a;
+  }
 }
