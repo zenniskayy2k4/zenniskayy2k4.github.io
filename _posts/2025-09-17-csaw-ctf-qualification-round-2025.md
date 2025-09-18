@@ -472,7 +472,7 @@ Chương trình thực hiện một chuỗi các bước phức tạp để tạ
 
 ---
 
-### **2. Lên kế hoạch tấn công**
+### **Lên kế hoạch tấn công**
 
 Điểm yếu chí mạng là chương trình đã cho chúng ta biết chính xác giá trị `timestamp` được dùng làm seed. Điều này biến một quá trình trông có vẻ ngẫu nhiên trở nên hoàn toàn có thể dự đoán.
 
@@ -486,7 +486,7 @@ Kế hoạch của chúng ta là viết một script mô phỏng lại từng b�
 
 ---
 
-### **3. Điểm lưu ý trong `build_bittree`**
+### **Điểm lưu ý trong `build_bittree`**
 
 Trong quá trình viết script, chúng ta gặp phải lỗi `UnicodeDecodeError`. Lỗi này cho thấy kết quả giải mã không phải là một chuỗi văn bản hợp lệ, đồng nghĩa với việc khóa mã hóa đã bị tính toán sai.
 
@@ -510,7 +510,7 @@ Phiên bản script đầu tiên chỉ implment logic của trường hợp chun
 
 ---
 
-### **4. Script**
+### **Script**
 
 ```python
 import ctypes
@@ -642,3 +642,81 @@ if __name__ == "__main__":
 
 > Flag: `csawctf{r3v3r51ng_5h4d0wy_pr070c0l5_15_c3r741n1y_n07_34sy}`
 {: .prompt-flag }
+
+---
+
+# Crypto
+## Obligatory RSA
+
+Bài crypto này dễ nhưng mà mình bị đề lừa, đề cố tình đổi kí hiệu `c` (ciphertext) thành `d` (private exponent) nên mình không giải được :((
+
+### Tóm tắt
+
+Ta được hai modulus RSA $n_1$ và $n_2$ cùng hai số (đã cho) gọi là `d1` và `d2` (ở đây thực chất là hai ciphertext). Nếu $\gcd(n_1, n_2) \neq 1$ thì hai modulus chia sẻ một thừa số nguyên tố chung $p$. Khi có $p$, việc phân tích hai modulus trở nên **rất dễ** và ta có thể phục hồi khóa riêng để giải mã.
+
+---
+
+### Lý thuyết
+
+* RSA: $n = p \cdot q$, public exponent $e$, private exponent $d$ thỏa $e\cdot d \equiv 1 \pmod{\varphi(n)}$ với $\varphi(n)=(p-1)(q-1)$.
+* Nếu $n_1 = p\cdot q_1$ và $n_2 = p\cdot q_2$ (cùng dùng $p$):
+
+  * Tính $p = \gcd(n_1, n_2)$.
+  * Lấy $q_1 = n_1/p$, $q_2 = n_2/p$.
+  * Từ đó tính $\varphi(n_1)$ và $\varphi(n_2)$, rồi lấy nghịch đảo modular $d_1 = e^{-1} \bmod \varphi(n_1)$, $d_2 = e^{-1} \bmod \varphi(n_2)$.
+  * Dùng $d_1,d_2$ để giải mã ciphertext tương ứng: $m = c^d \bmod n$.
+
+---
+
+### Exploit
+
+1. Tính $p = \gcd(n_1, n_2)$.
+2. Tính $q_1 = n_1 // p$, $q_2 = n_2 // p$.
+3. Tính $\varphi(n_1) = (p-1)(q_1-1)$ và $\varphi(n_2) = (p-1)(q_2-1)$.
+4. Tính $d_1 = e^{-1} \bmod \varphi(n_1)$ và $d_2 = e^{-1} \bmod \varphi(n_2)$.
+5. Giải mã ciphertext `c1` và `c2` bằng `pow(c, d, n)`.
+
+---
+
+```python
+"""Note:
+d1 and d2 are encrypted messages using RSA. If n1 and n2 are RSA moduli with gcd(n1, n2) != 1 then they share a prime factor p factoring then becomes trivial q1 = n1/p and q2 = n2/p with both moduli factored the private exponents can be derived and used to decrypt d1 and d2.
+"""
+from math import *
+from Crypto.Util.number import *
+
+e = 65537
+n1 = 129092526753383933030272290277107300767707654330551632967994396398045326531320303963182497488182474202461120692162734880438261410066549845639992024037416720228421076282632904598519793243067220342037144864237020757818263128301138206081187472003821789897063195512919097350247829148288118913456964033001399074373
+n2 = 108355113470836594630192960651980673780103497896732213011958303033575870030505528169174729530490405910634291415346360688290452976527316909469646908289732023715737439312572012648165819533234604850608390233938174081867146846639110685928136323983961395098632140681799175543046722931901766226759894951292033805879
+d1 = 88843495989869871001559754882918076779858404440780391818567639602073173623287821751315349650577023725245222074965050035045516207303078461168168819365025746973589245131570143944718203046457391270418459087764266630890566079039821735168805805866019315142070438225092171304343352469029480503113942986147848666077
+d2 = 94565144275929764017241865812435668644218918537941567711225644474418458115544003036362558987818610553975855551983688286593672386482543188020042082319191545660551324293738920214028045344249670512999137548994496577128446165632885775744795722253354007167294035878656056258332703809173397147948143695113558988035
+
+p = gcd(n1, n2)
+q1 = n1 // p
+q2 = n2 // p
+
+print(f"p (common prime): {p}")
+print(f"q1: {q1}")
+print(f"q2: {q2}")
+
+# Decrypt d1
+phi1 = (p - 1) * (q1 - 1)
+d_1 = inverse(e, phi1)
+m1 = pow(d1, d_1, n1)
+flag1 = long_to_bytes(m1).decode()
+
+# Decrypt d2
+phi2 = (p - 1) *  (q2 - 1)
+d_2 = inverse(e, phi2)
+m2 = pow(d2, d_2, n2)
+flag2 = long_to_bytes(m2).decode()
+
+assert flag1 == flag2
+
+print(f"Flag: {flag1}")
+```
+
+> Flag: `csawctf{wH04m1_70d3Ny_7r4D1710n_4820391578649021735}`
+{: .prompt-flag }
+
+---
