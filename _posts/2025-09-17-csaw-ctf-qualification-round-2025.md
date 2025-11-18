@@ -1,7 +1,7 @@
 ---
 title: CSAW CTF Qualification Round 2025
 date: 2025-09-17 09:00 +0700
-tags: [ctf, web, reversing, pwnable, misc]
+tags: [ctf, web, reversing, pwnable, misc, crypto]
 categories: [CTF Writeups]
 author: ZennisKayy
 math: true
