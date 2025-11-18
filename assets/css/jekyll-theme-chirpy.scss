@@ -85,3 +85,99 @@ pre {
     border-left-color: #c92a2a;
   }
 }
+
+/* === Custom Solidity Syntax Highlight (VSCode Dark+ inspired) === */
+
+/* Tổng thể cho block code Solidity */
+.highlight.language-solidity {
+  background-color: #1e1e1e; /* nền tối dịu */
+  color: #d4d4d4;
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+  font-family: 'Fira Code', 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  overflow-x: auto;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Các token chính */
+.highlight.language-solidity .k {
+  color: #569cd6;
+} /* keyword */
+.highlight.language-solidity .kd {
+  color: #569cd6;
+} /* declarations */
+.highlight.language-solidity .n {
+  color: #9cdcfe;
+} /* identifiers */
+.highlight.language-solidity .nc {
+  color: #4ec9b0;
+} /* contract/class name */
+.highlight.language-solidity .nf {
+  color: #dcdcaa;
+} /* function name */
+.highlight.language-solidity .nb {
+  color: #c586c0;
+} /* built-ins */
+.highlight.language-solidity .o {
+  color: #d4d4d4;
+} /* operators */
+.highlight.language-solidity .p {
+  color: #d4d4d4;
+} /* punctuation */
+
+/* Literals và strings */
+.highlight.language-solidity .s {
+  color: #ce9178;
+} /* string */
+.highlight.language-solidity .mi {
+  color: #b5cea8;
+} /* number */
+.highlight.language-solidity .mf {
+  color: #b5cea8;
+} /* float */
+
+/* Comments */
+.highlight.language-solidity .c,
+.highlight.language-solidity .cm,
+.highlight.language-solidity .cp,
+.highlight.language-solidity .c1 {
+  color: #6a9955; /* comment xanh lá nhạt */
+  font-style: italic;
+}
+
+/* Types, mapping, struct, modifiers */
+.highlight.language-solidity .kt {
+  color: #4ec9b0;
+} /* type name */
+.highlight.language-solidity .nn {
+  color: #4ec9b0;
+}
+.highlight.language-solidity .nx {
+  color: #9cdcfe;
+}
+
+/* Pragma hoặc directive */
+.highlight.language-solidity .cp {
+  color: #c586c0;
+}
+
+/* Căn chỉnh code block cho hài hòa với Chirpy */
+.highlight.language-solidity code {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.mermaid {
+  margin: 1.2rem 0;
+  overflow-x: auto;
+  text-align: center;
+}
+
+.mermaid svg {
+  border-radius: 0.5rem;
+  background: transparent;
+}
