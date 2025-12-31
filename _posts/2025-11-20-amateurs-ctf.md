@@ -1248,7 +1248,7 @@ void _start() {
 Dựa trên mã nguồn C được dịch ngược từ Ghidra, chúng ta xác định được các thành phần chính của chương trình:
 
 * **Dữ liệu đầu vào:** Chương trình yêu cầu nhập đúng **28 ký tự** (vòng lặp `while (local_28 < 0x1c)`). Các ký tự hợp lệ là `w, a, s, d`.
-* **Cấu trúc dữ liệu:** * **Tọa độ (X, Y):** Lưu tại `DAT_00104050` và `DAT_00104051`. Cả hai đều được giới hạn trong khoảng  bằng toán tử `& 7` (tương đương với một lưới 8x8 bao quanh).
+* **Cấu trúc dữ liệu:** **Tọa độ (X, Y):** Lưu tại `DAT_00104050` và `DAT_00104051`. Cả hai đều được giới hạn trong khoảng  bằng toán tử `& 7` (tương đương với một lưới 8x8 bao quanh).
 * **Lưới trạng thái (Current Grid):** Một mảng 8 byte tại `DAT_00104010`. Mỗi bước đi sẽ thực hiện lật bit (XOR) tại vị trí tương ứng: `grid[y] ^= (1 << x)`.
 
 
