@@ -991,7 +991,7 @@ Chương trình thực hiện các bước sau:
 *   Thư viện chuẩn C (`libc`) thông thường cũng không chạy được vì hàm `printf`, `fopen` cần các syscall bị cấm.
 *   **Quan trọng:** Syscall `lseek` bị chặn. Điều này ngăn cản việc chúng ta đọc bộ nhớ tùy ý thông qua `/proc/pid/mem` theo cách thông thường.
 
-#### 2. Ý tưởng tấn công (Attack Vector)
+#### Ý tưởng tấn công (Attack Vector)
 
 Mục tiêu: Đọc nội dung Stack của **Tiến trình Cha**.
 
@@ -1020,7 +1020,7 @@ File thư viện `libc.so.6` được copy vào `/tmp`. Tiến trình cha (`chal
 5.  Khi bố gọi `sleep` lần tới, bố sẽ chạy Shellcode thay vì ngủ.
 6.  Shellcode sẽ thực hiện: `write(stdout, stack_pointer, ...)` để in flag ra cho chúng ta.
 
-#### 3. Chi tiết kỹ thuật Exploit
+#### Chi tiết kỹ thuật Exploit
 
 ##### Bước 1: Viết code "Nostdlib" (Không thư viện chuẩn)
 Vì Seccomp quá gắt, ta không thể dùng `gcc exploit.c` bình thường. Ta phải dùng cờ `-nostdlib` và tự định nghĩa các syscall bằng Assembly.
@@ -1065,7 +1065,7 @@ mov rax, 1          ; Syscall Write
 syscall
 ```
 
-#### 4. Snippet
+#### Snippet
 
 Đây là đoạn code quan trọng nhất trong file `solve.c`:
 
@@ -1227,7 +1227,7 @@ void _start() {
     my_write(fd_out, libc_buf, total_read);
 ```
 
-#### 5. Kết luận
+#### Key Takeaways
 
 Để giải bài này, ta đã đi qua các kiến thức:
 1.  **Seccomp:** Hiểu cách hệ điều hành chặn syscall và cách viết code bypass bằng assembly thuần.
@@ -1673,7 +1673,7 @@ if __name__ == "__main__":
 5.  **Poly GCD Mod $m$:** Tính GCD của các đa thức trên trường $\mathbb{Z}_m$ để tìm phương trình bậc nhất chứa $u$. Giải tìm $u$.
 6.  **Backtrack:** Tính ngược lại $a \to c \to \text{flag}$.
 
-### Key Takeaways
+#### Key Takeaways
 *   **LCG không an toàn:** Ngay cả khi ẩn số lần lặp hay mô-đun, LCG vẫn dễ bị tấn công nếu lộ ra một vài output liên tiếp do tính chất tuyến tính của nó.
 *   **Affine Shift:** Kỹ thuật thêm hằng số $u$ để biến đổi $ax+c$ thành phép nhân $a(x+u)$ là cực kỳ hữu ích trong việc giải các bài toán LCG ẩn tham số.
 *   **Resultant:** Là công cụ mạnh mẽ trong mật mã học (đặc biệt là tấn công RSA kiểu Franklin-Reiter) để loại bỏ biến chung giữa hai phương trình đa thức mà không cần giải trực tiếp.
