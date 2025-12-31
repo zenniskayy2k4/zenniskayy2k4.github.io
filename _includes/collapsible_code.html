@@ -1,0 +1,7 @@
+<div class="collapsible-code">
+  <div class="collapsible-header">
+    <span>{{ include.title | default: "Click to reveal code" }}</span>
+    <i class="fas fa-chevron-down collapsible-icon"></i>
+  </div>
+  <div class="collapsible-content">{{ include.content | markdownify }}</div>
+</div>

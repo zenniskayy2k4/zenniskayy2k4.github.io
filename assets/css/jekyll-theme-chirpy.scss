@@ -88,9 +88,8 @@ pre {
 
 /* === Custom Solidity Syntax Highlight (VSCode Dark+ inspired) === */
 
-/* Tổng thể cho block code Solidity */
 .highlight.language-solidity {
-  background-color: #1e1e1e; /* nền tối dịu */
+  background-color: #1e1e1e;
   color: #d4d4d4;
   border-radius: 0.5rem;
   padding: 1rem 1.25rem;
@@ -102,7 +101,7 @@ pre {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Các token chính */
+/* Main tokens */
 .highlight.language-solidity .k {
   color: #569cd6;
 } /* keyword */
@@ -144,7 +143,7 @@ pre {
 .highlight.language-solidity .cm,
 .highlight.language-solidity .cp,
 .highlight.language-solidity .c1 {
-  color: #6a9955; /* comment xanh lá nhạt */
+  color: #6a9955; /* light green comment */
   font-style: italic;
 }
 
@@ -159,12 +158,12 @@ pre {
   color: #9cdcfe;
 }
 
-/* Pragma hoặc directive */
+/* Pragma or directive */
 .highlight.language-solidity .cp {
   color: #c586c0;
 }
 
-/* Căn chỉnh code block cho hài hòa với Chirpy */
+/* Align code block with Chirpy */
 .highlight.language-solidity code {
   background: transparent;
   border: none;
@@ -180,4 +179,117 @@ pre {
 .mermaid svg {
   border-radius: 0.5rem;
   background: transparent;
+}
+
+/* === Custom Collapsible Code Block === */
+
+.collapsible-code {
+  border: 1px solid var(--card-border-color);
+  border-radius: 0.5rem;
+  margin: 1.25rem 0;
+  background-color: var(--card-bg);
+  overflow: hidden; /* Ensures child borders are clipped to the parent radius */
+}
+
+.collapsible-header {
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  user-select: none; /* Prevent text selection on click */
+  border-bottom: 1px solid var(--card-border-color);
+}
+
+/* Hide the bottom border when the block is collapsed */
+.collapsible-code:not(.active) .collapsible-header {
+  border-bottom: none;
+}
+
+.collapsible-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+}
+
+/* When the .active class is added, expand the content */
+.collapsible-code.active .collapsible-content {
+  /* Use a large enough value to accommodate any code block */
+  max-height: 500vh;
+  transition: max-height 0.5s ease-in;
+}
+
+/* The code block inside the collapsible content */
+.collapsible-content .highlight {
+  margin: 0; /* Remove default margins */
+  border-radius: 0; /* Remove rounded corners to fit container */
+  border: none; /* Remove borders */
+}
+
+.collapsible-icon {
+  transition: transform 0.3s ease;
+}
+
+/* Rotate the icon when the block is expanded */
+.collapsible-code.active .collapsible-icon {
+  transform: rotate(180deg);
+}
+
+/* === Light Mode Customization === */
+:root[data-mode='light'] {
+  --main-bg: #d4d4d4 !important;
+  --card-bg: #e0e0e0 !important;
+  --text-color: #1a1a1a !important;
+}
+
+body[data-mode='light'] {
+  background-color: #d4d4d4 !important;
+}
+
+.post-preview {
+  overflow: hidden; /* Clip content to card borders */
+  border-radius: 0.75rem; /* Match card border radius */
+}
+
+.post-preview .preview-img {
+  height: 100%; /* Fill container height */
+}
+
+.post-preview .preview-img img {
+  border-radius: 0; /* Remove image border radius */
+  display: block; /* Remove inline spacing */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure image fills container properly */
+}
+
+.post-preview .card-body {
+  border-radius: 0;
+}
+
+/* === Custom Banner Image Styling === */
+
+#post-wrapper article > p:first-of-type > img:first-of-type,
+#post-wrapper .post-tail-wrapper > .post-meta img {
+  width: 100%;
+  max-height: none !important;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.post-preview .preview-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover !important;
+  border-radius: 0;
+  display: block;
+}
+
+.post-preview .preview-img {
+  height: 100%;
+  min-height: 200px;
 }
