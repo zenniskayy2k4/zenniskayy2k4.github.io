@@ -14,7 +14,7 @@ Dưới đây là lời giải chi tiết cho các bài CTF mình đã clear th�
 
 ## **Pwn**
 
-### **easy-bof**
+### **Easy bof**
 
 Đây là một thử thách pwn cơ bản, mục tiêu là khai thác lỗ hổng tràn bộ đệm (Buffer Overflow) cổ điển để chiếm quyền điều khiển luồng thực thi của chương trình và nhận được shell.
 
@@ -641,7 +641,7 @@ Kỹ thuật sử dụng: **Tcache Poisoning**.
 
 **Trở ngại (Safe Linking):**
 Trên Glibc mới, con trỏ `fd` trong Tcache được mã hóa bằng công thức:
-$$ \text{Stored\_Ptr} = (\text{Address} \gg 12) \oplus \text{Next\_Ptr} $$
+$$ \text{Stored\_{Ptr}} = (\text{Address} \gg 12) \oplus \text{Next\_{Ptr}} $$
 Để ghi đè `Next_Ptr` thành địa chỉ mình muốn, ta cần biết `(Address >> 12)` (gọi là **Key**).
 
 #### Walkthrough
