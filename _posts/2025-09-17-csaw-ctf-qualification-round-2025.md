@@ -9,6 +9,8 @@ image:
   path: /assets/img/CSAW-25/logo.png
 ---
 
+> Từ những bế tắc ban đầu đến lúc tìm ra hướng đi đúng đắn sau $3.14 \times n$ giờ, post này không chỉ là write-up, mà là nhật ký tư duy và những bài học thú vị mà mình đã đúc kết được.
+
 # **Web**
 ## **Orion Override**
 
@@ -122,12 +124,11 @@ Chúng ta không biết key, nhưng chúng ta có thể hỏi server từng chú
 
 #### **Bước 2:** Tạo số và chỉ số âm
 
-*   `False` -> `('a'>'b')` -> `0`
-*   `True` -> `('a'<'b')` -> `1`
-*   `-1` -> `~0` -> `~('a'>'b')`
-*   `-2` -> `~1` -> `~('a'<'b')`
-*   `-n` -> `~(n-1)`
-
+*   `False` &rarr; `('a'>'b')` &rarr; `0`
+*   `True` &rarr; `('a'<'b')` &rarr; `1`
+*   `-1` &rarr; `~0` &rarr; `~('a'>'b')`
+*   `-2` &rarr; `~1` &rarr; `~('a'<'b')`
+*   `-n` &rarr; `~(n-1)`
 #### **Bước 3:** Vượt qua giới hạn 150 ký tự - Tối ưu hóa Payload
 
 Đây là phần khó nhất. Để lấy ký tự thứ 27 từ cuối (`{`), chúng ta cần tạo ra chỉ số `-27`, tương đương với việc tạo ra số `26`.
