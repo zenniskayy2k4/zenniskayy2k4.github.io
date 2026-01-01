@@ -244,7 +244,7 @@ Bằng cách thử nghiệm (fuzzing) hoặc debug, ta phát hiện tại **Inde
 
 *   `view(-7)`: Chương trình in nội dung tại `notes[-7]`.
 *   Lấy giá trị đó trừ đi offset cố định (`0x4008`), ta tìm được **PIE Base**.
-*   Biết PIE Base -> Ta biết chính xác địa chỉ mảng `notes`.
+*   Biết PIE Base &rarr; Ta biết chính xác địa chỉ mảng `notes`.
 
 ##### Bước 2: Leak Libc (Heap Unsorted Bin)
 
@@ -420,8 +420,7 @@ Qua bài này, một newbie có thể học được:
 
 ### **Rewrite It In Zig**
 
-**Category:** Pwn
-**Language:** Zig
+**Language:** Zig  
 **Technique:** Static Binary Exploitation, ROP (Return Oriented Programming), Ret-2-Syscall (via Wrapper).
 
 #### Reconnaissance
@@ -450,7 +449,7 @@ Type:     Statically Linked
 *   **Statically Linked:** Binary chứa toàn bộ code thư viện (file rất nặng), không phụ thuộc `libc` bên ngoài.
 *   **No PIE:** Địa chỉ code và data là cố định (dễ dàng dùng ROP).
 *   **No Canary:** Có thể overflow thoải mái mà không bị crash ngay lập tức.
-*   **NX Enabled:** Không thể thực thi shellcode trên stack -> Phải dùng ROP.
+*   **NX Enabled:** Không thể thực thi shellcode trên stack &rarr; Phải dùng ROP.
 
 #### Exploitation Strategy
 
@@ -629,7 +628,7 @@ Chương trình là một menu quản lý Heap cơ bản với các chức năng
 
 **Lỗ hổng (Vulnerability):**
 Lỗi **Use-After-Free (UAF)** xảy ra ở chức năng `Free`. Sau khi giải phóng bộ nhớ, chương trình **không xóa con trỏ** trong mảng quản lý.
--> Chúng ta vẫn có thể `Edit` (Ghi) và `View` (Đọc) một chunk đã bị free.
+&rarr; Chúng ta vẫn có thể `Edit` (Ghi) và `View` (Đọc) một chunk đã bị free.
 
 #### Exploitation Strategy
 
@@ -649,7 +648,7 @@ $$ \text{Stored\_Ptr} = (\text{Address} \gg 12) \oplus \text{Next\_Ptr} $$
 
 ##### Bước 1: Leak Heap Key (Bypass Safe Linking)
 *   **Hành động:** Alloc một chunk (Chunk 0) và Free nó.
-*   **Trạng thái Tcache:** `Head -> Chunk 0 -> NULL`.
+*   **Trạng thái Tcache:** `Head &rarr; Chunk 0 &rarr; NULL`.
 *   **Tại Chunk 0:** Con trỏ `fd` sẽ lưu giá trị: `(Chunk0_Addr >> 12) ^ NULL`.
 *   **Khai thác:** Dùng chức năng `View(0)` (UAF Read) để đọc giá trị này. Do XOR với 0 vẫn là chính nó, ta thu được `Key = (Chunk0_Addr >> 12)`.
 
@@ -676,7 +675,7 @@ edit(0, p64(fake_fd))
 ##### Bước 3: Alloc Arbitrary Address (Lấy vùng nhớ mục tiêu)
 *   **Alloc(1):** Lấy Chunk 0 ra khỏi Tcache. Glibc sẽ giải mã `fd` của Chunk 0 để cập nhật Tcache Head.
     *   Tcache Head bây giờ trỏ tới: `checkbuf`.
-*   **Alloc(2):** Lấy chunk tiếp theo trong Tcache -> Chính là địa chỉ `checkbuf`!
+*   **Alloc(2):** Lấy chunk tiếp theo trong Tcache &rarr; Chính là địa chỉ `checkbuf`!
 
 ```python
 alloc(1) # Lấy chunk rác
@@ -792,7 +791,7 @@ Bài **Easy Heap** là một ví dụ tuyệt vời để luyện tập khai th�
 *   **Kiến thức thu được:**
     1.  Hiểu về lỗi UAF (Use-After-Free) cơ bản.
     2.  Cơ chế hoạt động của Tcache (Thread Local Cache).
-    3.  Cách vượt qua cơ chế bảo vệ **Safe Linking** của Glibc (Leak Key -> XOR -> Poison).
+    3.  Cách vượt qua cơ chế bảo vệ **Safe Linking** của Glibc (Leak Key &rarr; XOR &rarr; Poison).
     4.  Tận dụng **No PIE** để tấn công vào các vùng nhớ tĩnh (.bss/.data).
 
 ### **Easy Shellcoding**
@@ -880,7 +879,7 @@ Wait, chỗ `0F 05` hoạt động như sau:
 1.  Ở 64-bit, lệnh `mov rbx, [8 bytes immediate]` nó "nuốt" hết 8 bytes sau nó.
 2.  Chuỗi byte `90 90 90 90 3D 90 90 90` là 8 byte đó.
 3.  Byte tiếp theo là `0F`. Byte sau nữa là `05`.
-4.  CPU 64-bit ghép lại: **`0F 05` -> `SYSCALL`**.
+4.  CPU 64-bit ghép lại: **`0F 05` &rarr; `SYSCALL`**.
 
 Ở góc nhìn 32-bit (Validator):
 1.  Nó thấy `cmp eax, ...` (Opcode `3D`). Lệnh này ăn 4 byte tiếp theo.
@@ -1047,13 +1046,13 @@ File `libc.so.6` là định dạng ELF. Ta phải parse (phân tích) nó thủ
 Đây là phần tinh tế nhất.
 *   Tiến trình cha đang ngủ (`nanosleep` syscall).
 *   Khi nó tỉnh dậy, CPU sẽ quay về một địa chỉ nằm **giữa** hàm `sleep` (địa chỉ return sau syscall).
-*   Nếu ta ghi đè Shellcode ngay đầu hàm `sleep`, khi cha tỉnh dậy, cha sẽ rơi vào giữa đống code của ta -> **Crash** (Segmentation Fault).
+*   Nếu ta ghi đè Shellcode ngay đầu hàm `sleep`, khi cha tỉnh dậy, cha sẽ rơi vào giữa đống code của ta &rarr; **Crash** (Segmentation Fault).
 
 **Giải pháp:** Dùng NOP Sled.
 *   **NOP** (`0x90`) là lệnh Assembly "No Operation" (Không làm gì cả, đi tiếp lệnh sau).
 *   Ta ghi đè 200 byte đầu của hàm `sleep` bằng toàn `0x90`.
 *   Ta đặt Shellcode ở **cuối** 200 byte đó.
-*   **Kết quả:** Dù cha tỉnh dậy ở bất cứ đâu trong vùng 200 byte này, CPU sẽ trượt (slide) qua các lệnh NOP cho đến khi chạm vào Shellcode ở cuối. -> **Thành công 100%**.
+*   **Kết quả:** Dù cha tỉnh dậy ở bất cứ đâu trong vùng 200 byte này, CPU sẽ trượt (slide) qua các lệnh NOP cho đến khi chạm vào Shellcode ở cuối.
 
 ##### Bước 4: Shellcode lấy Flag
 Shellcode (viết bằng Assembly) sẽ làm nhiệm vụ đơn giản: In nội dung Stack ra màn hình.
@@ -1729,9 +1728,9 @@ Thay vì cố gắng làm ô nhiễm `Object.prototype` (gây crash server hoặ
 2.  **Prototype Hijacking:** Ta set `__proto__` của Object giả này trỏ tới một instance hợp lệ của `FlagRequest`.
 
 **Kết quả:**
-- Khi server kiểm tra `object instanceof FlagRequest`: Nó nhìn vào prototype chain -> Thấy `FlagRequest` -> **Hợp lệ (Pass)**.
+- Khi server kiểm tra `object instanceof FlagRequest`: Nó nhìn vào prototype chain &rarr; Thấy `FlagRequest` &rarr; **Hợp lệ (Pass)**.
 - Khi server gọi `object.flag`: Getter `flag` được gọi từ prototype (FlagRequest), nhưng `this` lúc này trỏ vào Object giả của ta.
-- Khi getter check `this.admin`: Nó tìm thấy `admin: true` trên Object giả -> **Trả về Flag**.
+- Khi getter check `this.admin`: Nó tìm thấy `admin: true` trên Object giả &rarr; **Trả về Flag**.
 
 ---
 
