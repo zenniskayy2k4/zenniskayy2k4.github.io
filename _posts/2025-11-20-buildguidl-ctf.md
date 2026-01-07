@@ -1010,34 +1010,36 @@ Khi truy cập địa chỉ contract trên Etherscan, chúng ta chỉ thấy byt
 Kết quả dịch ngược có thể xem tại [Link](https://optimistic.etherscan.io/bytecode-decompiler?a=0x663145aA2918282A4F96af66320A5046C7009573).
 
 2. **Phân tích kết quả Decompile:** Kết quả dịch ngược cho chúng ta một cái nhìn rõ ràng về cấu trúc bên trong của contract:
-```
-# Palkeoramix decompiler. 
 
-def storage:
-  nftContractAddress is addr at storage 0
+  ```
+  # Palkeoramix decompiler. 
 
-def nftContract() payable: 
-  return nftContractAddress
+  def storage:
+    nftContractAddress is addr at storage 0
 
-#
-#  Regular functions
-#
+  def nftContract() payable: 
+    return nftContractAddress
 
-def _fallback() payable: # default function
-  revert
+  #
+  #  Regular functions
+  #
 
-def unknown8fd628f0(uint256 _param1) payable: 
-  require calldata.size - 4 >=ΓÇ▓ 32
-  require _param1 == addr(_param1)
-  if addr(_param1) != caller:
-      revert with 0, 'Invalid minter'
-  require ext_code.size(nftContractAddress)
-  call nftContractAddress.mint(address owner, uint256 value) with:
-       gas gas_remaining wei
-      args caller, 8
-  if not ext_call.success:
-      revert with ext_call.return_data[0 len return_data.size]
-```
+  def _fallback() payable: # default function
+    revert
+
+  def unknown8fd628f0(uint256 _param1) payable: 
+    require calldata.size - 4 >=ΓÇ▓ 32
+    require _param1 == addr(_param1)
+    if addr(_param1) != caller:
+        revert with 0, 'Invalid minter'
+    require ext_code.size(nftContractAddress)
+    call nftContractAddress.mint(address owner, uint256 value) with:
+        gas gas_remaining wei
+        args caller, 8
+    if not ext_call.success:
+        revert with ext_call.return_data[0 len return_data.size]
+  ```
+
 **Kết luận của cuộc điều tra:**
 - **Hàm ẩn:** Contract được deploy trên local có một hàm public với function selector là `0x8fd628f0`.
 - **Điều kiện:** Để hàm chạy thành công, địa chỉ được truyền vào (`_param1`) phải chính là địa chỉ của người gọi (`msg.sender`).
