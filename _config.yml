@@ -16,10 +16,10 @@ timezone: Asia/Saigon
 
 title: ZennisKayy # the main title
 
-tagline: Notes & solutions from CTF challenges # it will display as the subtitle
+tagline: Offensive Security · Application Security · Vulnerability Research
 
 description: >- # used by seo meta and the atom feed
-  ZennisKayy's blog site for CTF writeups and stuffs
+  ZennisKayy's security research portfolio and technical blog, covering vulnerability research, application security, and CTF write-ups.
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
@@ -29,7 +29,7 @@ github:
   username: zenniskayy2k4 # change to your GitHub username
 
 twitter:
-  username: Not using # change to your Twitter username
+  username: zenniskayy # change to your Twitter username
 
 social:
   # Change to your full name.
@@ -41,7 +41,8 @@ social:
     - https://github.com/zenniskayy2k4 # change to your GitHub homepage
     # Uncomment below to add more social links
     # - https://www.facebook.com/username
-    # - https://www.linkedin.com/in/username
+    - https://www.linkedin.com/in/zenniskayy
+    - https://x.com/zenniskayy
 
 # Site Verification Settings
 webmaster_verifications:
@@ -166,6 +167,9 @@ kramdown:
       start_line: 1
 
 collections:
+  research:
+    output: false
+    sort_by: order
   tabs:
     output: true
     sort_by: order
@@ -205,6 +209,10 @@ compress_html:
     envs: [development]
 
 exclude:
+  - AGENTS.md
+  - PRODUCT.md
+  - DESIGN.md
+  - .impeccable
   - "*.gem"
   - "*.gemspec"
   - docs

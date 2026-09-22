@@ -1,0 +1,101 @@
+// Keep the existing Chirpy layout and artwork; adapt their contrast for daylight.
+@mixin daylight {
+  color-scheme: light;
+  --main-bg: #f1f4f7;
+  --main-border-color: #c6d0db;
+  --text-color: #28364a;
+  --text-muted-color: #495a71;
+  --heading-color: #1b2a41;
+  --label-color: #425570;
+  --link-color: #275d9c;
+  --link-underline-color: #c8d8ec;
+  --blockquote-border-color: #cbd8e8;
+  --blockquote-text-color: #526078;
+
+  // Scope the dark sidebar palette so other light-mode controls stay light.
+  #sidebar {
+    --sidebar-bg: #152436;
+    --sidebar-border-color: #31465c;
+    --site-title-color: #e5edf6;
+    --site-subtitle-color: #b7c6d9;
+    --sidebar-muted-color: #b7c6d9;
+    --sidebar-active-color: #edf5ff;
+    --sidebar-hover-bg: rgb(255 255 255 / 12%);
+    --sidebar-btn-bg: #243448;
+    --sidebar-btn-color: #c5d6e8;
+    --avatar-border-color: #31465c;
+  }
+
+  --topbar-bg: rgb(241 244 247 / 96%);
+  --topbar-text-color: #425570;
+  --search-border-color: #ccd7e7;
+  --search-icon-color: #526078;
+  --input-focus-border-color: #275d9c;
+  --post-list-text-color: #526078;
+  --card-bg: #f8fafc;
+  --card-hovor-bg: #e9eff5; // Spelling is Chirpy's existing public token.
+  --card-shadow: 0 3px 12px rgb(33 54 79 / 7%);
+  --btn-border-color: #dce4ef;
+  --button-bg: #f8fafc;
+  --tag-border: #b8c7da;
+  --tag-hover: #e3ecf7;
+  --search-tag-bg: #e7eef6;
+  --categories-border: #bdccde;
+  --categories-hover-bg: #e3ebf4;
+  --tb-border-color: #bdccde;
+  --tb-odd-bg: #e7eef6;
+  --code-header-text-color: #526078;
+  --code-header-muted-color: #66758c;
+  --code-header-icon-color: #66758c;
+  --highlight-lineno-color: #66758c;
+  --pf-surface: #e5edf6;
+  --pf-border: #b8c7da;
+
+  // Keep the night artwork visible, matching the user-selected reference.
+  #sidebar::after {
+    opacity: 0.4;
+  }
+  #main-wrapper::after {
+    opacity: 0.2;
+    filter: saturate(0.78) contrast(0.9);
+  }
+
+  #search {
+    background: #f8fafc;
+  }
+  #search-input::placeholder {
+    color: #526078;
+  }
+  #sidebar .site-title:hover {
+    color: #ffffff;
+  }
+
+  .prompt-flag {
+    background-color: #fff1ed;
+    color: #672b27;
+    border-left-color: #af4236;
+  }
+
+  :where(a, button, summary, input):focus-visible {
+    outline: 2px solid #275d9c;
+    outline-offset: 3px;
+  }
+  #sidebar :where(a, button):focus-visible {
+    outline: 2px solid #91baff;
+    outline-offset: 4px;
+  }
+  ::selection {
+    background: #d6e6fb;
+    color: #1b2a41;
+  }
+}
+
+// Both automatic OS preference and the explicit Chirpy toggle use one palette.
+:root[data-mode='light'] {
+  @include daylight;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-mode='dark']) {
+    @include daylight;
+  }
+}

@@ -25,3 +25,12 @@ package-lock.json
 # Misc
 _sass/vendors
 assets/js/dist
+
+
+# Codex & Skill
+AGENTS.md
+.agents/
+.impeccable/review/
+DESIGN.md
+PRODUCT.md
+.impeccable/

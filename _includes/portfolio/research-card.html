@@ -1,0 +1,16 @@
+<article class="research-card{% if include.item.featured %} research-card--featured{% endif %}">
+  <div class="research-card__identity">
+    <h3>{{ include.item.product }}</h3>
+    <p class="pf-cve">{{ include.item.cve }}</p>
+    <span class="pf-meta">{{ include.item.classification }}</span>
+  </div>
+  <div class="research-card__body">
+    <p class="research-card__impact">{{ include.item.impact }}</p>
+    <p>{{ include.item.summary }}</p>
+    {% if include.details %}<div class="research-card__detail">{{ include.item.content }}</div>{% endif %}
+  </div>
+  <div class="research-card__evidence">
+    <span class="pf-severity pf-severity--{{ include.item.severity_level }}">{{ include.item.severity }}</span>
+    <a href="{{ include.item.evidence_url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ include.item.link_label }} for {{ include.item.product }}">{{ include.item.link_label }} <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+  </div>
+</article>

@@ -1,12 +1,13 @@
 ---
 ---
 
-/* prettier-ignore */
-@use 'main
-{%- if jekyll.environment == 'production' -%}
-  .bundle
-{%- endif -%}
-';
+// Use Chirpy's bundled stylesheet in development as well as production.
+// The theme otherwise loads Bootstrap from jsDelivr during `jekyll serve`;
+// when that request is blocked, the sidebar, avatar, topbar, and grid all
+// lose their Bootstrap utility styles at once.
+@use 'main.bundle';
+
+@use 'light-mode';
 
 /* append your custom style below */
 
@@ -75,15 +76,6 @@ pre {
   top: 45%;
   transform: translateY(-50%);
   font-size: 1.2rem;
-}
-
-/* Light mode override */
-@media (prefers-color-scheme: light) {
-  .prompt-flag {
-    background-color: #f8f9fa;
-    color: #2d2d2d;
-    border-left-color: #c92a2a;
-  }
 }
 
 /* === Custom Solidity Syntax Highlight (VSCode Dark+ inspired) === */
@@ -234,17 +226,6 @@ pre {
 /* Rotate the icon when the block is expanded */
 .collapsible-code.active .collapsible-icon {
   transform: rotate(180deg);
-}
-
-/* === Light Mode Customization === */
-:root[data-mode='light'] {
-  --main-bg: #d4d4d4 !important;
-  --card-bg: #e0e0e0 !important;
-  --text-color: #1a1a1a !important;
-}
-
-body[data-mode='light'] {
-  background-color: #d4d4d4 !important;
 }
 
 .post-preview {

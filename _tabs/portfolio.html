@@ -1,0 +1,190 @@
+---
+layout: portfolio
+title: Portfolio
+description: Security research portfolio of Bui Le Anh Khoa, featuring credited CVE discoveries, application security work, reverse engineering, and technical writing.
+icon: fas fa-user-shield
+order: 5
+---
+
+{% assign advent = site.posts | where: 'slug', 'advent-ctf-2025' | first %} {%
+assign research_items = site.research %} {% unless research_items %} {% assign
+research_items = '' | split: ',' %} {% endunless %} {% assign zero_day_research
+= research_items | where: 'kind', '0-day' | sort: 'order' %}
+<header class="pf-hero">
+  <div class="pf-identity">
+    <h1>Bui Le Anh Khoa</h1>
+    <p class="pf-role">
+      Offensive security · Application security · Vulnerability research
+    </p>
+    <p class="pf-intro">
+      I investigate trust boundaries, source code, and memory-safety failures.
+      My work includes three publicly credited CVE discoveries and a Critical
+      CVSS 9.6 Incus chain demonstrated through root command execution.
+    </p>
+    <div class="pf-actions">
+      <a class="pf-button pf-button--primary" href="#research">View research</a>
+      <a
+        class="pf-text-link"
+        href="https://github.com/{{ site.github.username }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        >GitHub <i class="fab fa-github" aria-hidden="true"></i
+      ></a>
+      <a class="pf-text-link" href="#contact">Contact</a>
+    </div>
+  </div>
+  <dl class="pf-proof">
+    <div>
+      <dt>Research</dt>
+      <dd>Three publicly credited original CVEs</dd>
+    </div>
+    <div>
+      <dt>Highest impact</dt>
+      <dd>Critical CVSS 9.6 · Root command execution</dd>
+    </div>
+    <div>
+      <dt>Experience</dt>
+      <dd>OPSWAT Cybersecurity Graduate Fellow · SWAT 2</dd>
+    </div>
+    <div>
+      <dt>Achievement</dt>
+      <dd>2nd Place, College Division · Advent of CTF 2025</dd>
+    </div>
+  </dl>
+</header>
+
+<section class="pf-section" id="research" aria-labelledby="research-heading">
+  <div class="pf-section-heading">
+    <div>
+      <h2 id="research-heading">Vulnerability research</h2>
+      <p>
+        Zero-day discoveries, responsible disclosure, and public reporter
+        credit.
+      </p>
+    </div>
+    <a href="{{ '/research/' | relative_url }}"
+      >Research details <i class="fas fa-arrow-right" aria-hidden="true"></i
+    ></a>
+  </div>
+  <div class="pf-research-list">
+    {% for item in zero_day_research %} {% include portfolio/research-card.html
+    item=item %} {% endfor %}
+  </div>
+</section>
+
+<section class="pf-section" aria-labelledby="work-heading">
+  <div class="pf-section-heading">
+    <h2 id="work-heading">Security Research</h2>
+  </div>
+  <div class="pf-work-grid">
+    {% for item in site.data.security_work %}
+    <article class="pf-work">
+      <h3>{{ item.title }}</h3>
+      <p class="pf-meta">{{ item.label }}</p>
+      <p>{{ item.summary }}</p>
+      <p class="pf-work-detail">{{ item.detail }}</p>
+      <a
+        class="pf-evidence"
+        href="{{ item.url }}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {{- item.link }}
+        <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i
+      ></a>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="pf-section pf-split" aria-labelledby="experience-heading">
+  <h2 id="experience-heading">Experience &amp; achievements</h2>
+  <div class="pf-experience">
+    <article>
+      <h3>Cybersecurity Fellow · OPSWAT</h3>
+      <p class="pf-meta">June-August 2026 · SWAT 2</p>
+      <p>
+        Hands-on vulnerability research and CVE reproduction in controlled labs,
+        analyzing root causes, exploitation conditions, and security impact.
+      </p>
+    </article>
+    <article>
+      <h3>2nd Place, College Division</h3>
+      <p class="pf-meta">Advent of CTF 2025 · CyberStudents</p>
+      <p>
+        Technical write-ups across reverse engineering, web security, digital
+        forensics, pwn, and cryptography.
+      </p>
+      {% if advent -%}
+      <a href="{{ advent.url | relative_url }}"
+        >Read the challenge write-ups
+        <i class="fas fa-arrow-right" aria-hidden="true"></i
+      ></a>
+      {%- endif %}
+    </article>
+  </div>
+</section>
+
+<section class="pf-section" aria-labelledby="writing-heading">
+  <div class="pf-section-heading">
+    <h2 id="writing-heading">Technical writing</h2>
+    <a href="{{ '/' | relative_url }}"
+      >All posts <i class="fas fa-arrow-right" aria-hidden="true"></i
+    ></a>
+  </div>
+  <div class="pf-writing">
+    {% assign visible_posts = site.posts | where_exp: 'post', 'post.hidden !=
+    true' %} {% for post in visible_posts limit: 3 %}
+    <article>
+      <div class="pf-writing-meta">
+        <time datetime="{{ post.date | date_to_xmlschema }}"
+          >{{ post.date | date: '%b %d, %Y' }}</time
+        >
+        <span>{{ post.categories | first }}</span>
+      </div>
+      <div>
+        <h3>
+          <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </h3>
+        <p>
+          {{ post.description | default: post.excerpt | strip_html |
+          normalize_whitespace | truncate: 155 }}
+        </p>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="pf-section pf-split" aria-labelledby="focus-heading">
+  <h2 id="focus-heading">Areas of focus</h2>
+  <dl class="pf-focus">
+    <dt>Research &amp; review</dt>
+    <dd>
+      Vulnerability research · Secure code review · Memory-safety analysis ·
+      Technical reporting
+    </dd>
+    <dt>Reverse engineering &amp; analysis</dt>
+    <dd>Ghidra · IDA Pro · GDB · AddressSanitizer</dd>
+    <dt>Implementation &amp; labs</dt>
+    <dd>C/C++ · Python · Bash · SQL · JavaScript · Docker · Linux</dd>
+  </dl>
+</section>
+
+<section
+  class="pf-section pf-contact"
+  id="contact"
+  aria-labelledby="contact-heading"
+>
+  <div>
+    <h2 id="contact-heading">Get in touch</h2>
+    <p>
+      For conversations about offensive security, application security, and
+      vulnerability research.
+    </p>
+    <a href="{{ '/about/' | relative_url }}"
+      >More about me <i class="fas fa-arrow-right" aria-hidden="true"></i
+    ></a>
+  </div>
+  {% include portfolio/contact.html %}
+</section>

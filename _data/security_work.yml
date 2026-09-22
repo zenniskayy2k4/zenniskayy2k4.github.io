@@ -1,0 +1,12 @@
+- title: Malware detection & explainable triage
+  label: Graduation thesis
+  summary: A security-analysis framework combining static analysis, reverse engineering, threat intelligence, and ML-assisted triage to support analysts.
+  detail: Runtime-aware analysis for native, .NET, and PyInstaller artifacts; Python, Ghidra, SHAP, and Docker.
+  url: https://github.com/zenniskayy2k4/xAI-in-Malware-Detection
+  link: Explore the framework
+- title: PyMySQL SQL injection lab
+  label: CVE Reproduction & Technical Analysis
+  summary: Reproduction of CVE-2024-36039, an object-key serialization flaw leading to SQL injection. A Docker lab, reproducible PoC, and technical analysis.
+  detail: Reproduction and analysis of an existing CVE; not an original vulnerability discovery.
+  url: https://github.com/zenniskayy2k4/CVE-2024-36039_PoC
+  link: View the PoC & analysis
