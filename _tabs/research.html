@@ -5,18 +5,24 @@ description: Original vulnerability discoveries and reproducible technical analy
 icon: fas fa-microscope
 order: 6
 ---
-{% assign research_items = site.research %}
-{% unless research_items %}
-  {% assign research_items = '' | split: ',' %}
-{% endunless %}
-{% assign zero_day_research = research_items | where: 'kind', '0-day' | sort: 'order' %}
-{% assign reproduced_research = research_items | where: 'kind', 'reproduction' | sort: 'order' %}
+
+{% assign research_items = site.research %} {% unless research_items %} {%
+assign research_items = '' | split: ',' %} {% endunless %} {% assign
+zero_day_research = research_items | where: 'kind', '0-day' | sort: 'order' %}
+{% assign reproduced_research = research_items | where: 'kind', 'reproduction' |
+sort: 'order' %}
 <header class="pf-page-heading">
   <div>
-    <h1>Vulnerability research</h1>
-    <p>Zero-day discoveries, responsible disclosure, and reproducible technical analysis. Every record links directly to the public evidence.</p>
+    <h1>Vulnerability Research</h1>
+    <p>
+      Zero-day discoveries, responsible disclosure, and reproducible technical
+      analysis. Every record links directly to the public evidence.
+    </p>
   </div>
-  <p class="pf-page-note"><strong>{{ zero_day_research.size }} credited discoveries</strong><span>Public upstream advisories · Memory safety · Trust boundaries</span></p>
+  <p class="pf-page-note">
+    <strong>{{ zero_day_research.size }} credited discoveries</strong
+    ><span>Public upstream advisories · Memory safety · Trust boundaries</span>
+  </p>
 </header>
 <section class="pf-research-section" aria-labelledby="zero-day-heading">
   <div class="pf-section-heading">
@@ -24,19 +30,23 @@ order: 6
     <p>Findings discovered and responsibly disclosed by Bui Le Anh Khoa.</p>
   </div>
   <div class="pf-research-list">
-    {% for item in zero_day_research %}
-      {% include portfolio/research-card.html item=item details=true %}
-    {% endfor %}
+    {% for item in zero_day_research %} {% include portfolio/research-card.html
+    item=item details=true %} {% endfor %}
   </div>
 </section>
-<section class="pf-section pf-research-section" aria-labelledby="reproduction-heading">
+<section
+  class="pf-section pf-research-section"
+  aria-labelledby="reproduction-heading"
+>
   <div class="pf-section-heading">
     <h2 id="reproduction-heading">Reproduction &amp; analysis</h2>
-    <p>Existing vulnerabilities rebuilt in controlled labs; not presented as zero-day discoveries.</p>
+    <p>
+      Existing vulnerabilities rebuilt in controlled labs; not presented as
+      zero-day discoveries.
+    </p>
   </div>
   <div class="pf-research-list">
-    {% for item in reproduced_research %}
-      {% include portfolio/research-card.html item=item details=true %}
-    {% endfor %}
+    {% for item in reproduced_research %} {% include
+    portfolio/research-card.html item=item details=true %} {% endfor %}
   </div>
 </section>

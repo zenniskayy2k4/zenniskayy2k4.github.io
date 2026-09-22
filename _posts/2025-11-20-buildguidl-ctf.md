@@ -11,7 +11,7 @@ image:
 mermaid: true
 ---
 
-> "Bảo mật Smart Contract không chỉ dừng lại ở việc viết code đúng cú pháp (syntax), mà nằm ở việc thấu hiểu tường tận cách máy ảo Ethereum (EVM) vận hành 'dưới nắp capo'.
+> "Bảo mật Smart Contract không chỉ dừng lại ở việc viết code đúng syntax, mà nằm ở việc thấu hiểu tường tận cách máy ảo Ethereum (EVM) vận hành 'dưới nắp capo'.
 >
 > Chuỗi bài viết này là tài liệu ghi lại quá trình tôi phân tích và khai thác 12 thử thách thực chiến từ BuidlGuidl CTF. Từ những lỗi logic cơ bản như `tx.origin`, cho đến những kỹ thuật nâng cao như thao túng Gas, tấn công Re-entrancy và tái tạo Block Header bằng RLP encoding.
 >

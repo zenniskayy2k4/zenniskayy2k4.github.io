@@ -179,8 +179,12 @@ body:has(.portfolio) {
   }
 
   i {
+    display: inline-block;
+    flex: 0 0 auto;
     margin-left: 0.28em;
     font-size: 0.72em;
+    line-height: 1;
+    text-decoration: none;
   }
 
   :where(a, button):focus-visible {
@@ -284,10 +288,29 @@ body:has(.portfolio) {
 }
 
 .pf-text-link {
+  position: relative;
   display: inline-flex;
   gap: 0.3rem;
   align-items: center;
   min-height: 44px;
+  text-decoration: none !important;
+
+  &::after {
+    position: absolute;
+    right: 0;
+    bottom: 0.4rem;
+    left: 0;
+    height: 1px;
+    background: currentcolor;
+    content: '';
+    opacity: 0;
+    transition: opacity 160ms ease-out;
+  }
+
+  &:hover::after,
+  &:focus-visible::after {
+    opacity: 1;
+  }
 }
 
 .pf-section {
@@ -333,15 +356,13 @@ body:has(.portfolio) {
       0.85fr
     );
   gap: clamp(1.5rem, 3vw, 2.5rem);
-  padding: 1.55rem 0;
+  padding: 1.55rem 1.25rem;
   border-top: 1px solid var(--pf-border);
   transition:
     background-color 180ms ease-out,
     border-color 180ms ease-out;
 
   &--featured {
-    margin-inline: -1.25rem;
-    padding-inline: 1.25rem;
     background: var(--pf-surface);
     border-top-color: var(--pf-border-strong);
   }
@@ -407,13 +428,6 @@ body:has(.portfolio) {
     background-color: var(--pf-surface);
   }
 
-  &:has(.research-card__evidence a:hover) .research-card__evidence i {
-    transform: translate(2px, -2px);
-  }
-
-  .research-card__evidence i {
-    transition: transform 180ms ease-out;
-  }
 }
 
 .pf-severity {
